@@ -64,7 +64,8 @@ genAllReports(Service A)
 
 ![image](./img/jaeger1.png)
 右上角的圖表中，紅色圓點是錯誤的標記，越大的圓點代表內含的 Span（邏輯運行單元）越多。
-左邊是搜尋條件：
+
+左邊則是搜尋條件：
 - **Service**：要追蹤的服務。
 - **Operations**：曾經觸發過的操作。
 - **Tags**：我們可以為 Span 設計 Tag 方便過濾。
@@ -86,9 +87,9 @@ genAllReports(Service A)
 ![image](./img/jaeger4.png)
 也可以切換到圖形（Trace Graph）介面來觀察。
 
-> 相信圖片比起文字更有說服力，即使不懂程式，透過圖表與限制條件也能很快找到問題點。
+> 相信圖片比起文字更有說服力，在圖表與搜尋條件的輔助下，我們能更快找到問題點。
 
-### 三、手把手帶你建立專案，並透過 jaeger 追蹤
+### 三、手把手帶你建立 Node.js 專案＆Jaeger 環境
 
 這邊筆者就不細說程式邏輯，主要的目的是讓讀者在 local 端建立分布式追蹤系統，如果懶得按照步驟執行，可以直接到筆者的 Github Clone 一份下來。
 
@@ -315,7 +316,7 @@ curl http://localhost:8080/api/allReports
 
 ![image](./img/jaeger5.png)
 
-如果都按照步驟執行，打開瀏覽器在網址輸入「 http://localhost:16686/search 」，順利的話就可以開始追蹤服務嚕！
+如果都按照步驟執行，在瀏覽器的網址輸入「 http://localhost:16686/search 」就可以開始追蹤服務嚕！
 
 ![image](./img/jaeger6.png)
 
