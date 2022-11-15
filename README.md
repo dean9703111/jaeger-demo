@@ -25,7 +25,7 @@
 1. Dashboard 渲染時會呼叫很多 API，而耗時長的 API 背後通常有複雜的商業邏輯（ex：串連多個服務後才得到的結果）。
 2. 即便知道哪個 API 是效能瓶頸，但因為串連的服務太多，需要逐一下 log 才能判斷出是哪個環節出了問題。
 
-相信有不少人遇過這些困擾，所以今天筆者想要跟大家分享「Jaeger」這個分布式追蹤系統，它能幫我們：
+相信有不少人遇過這些困擾，所以今天筆者想要跟大家分享，如何用「Jaeger + OpenTelemetry + Node.js」搭建分布式追蹤系統，來幫我們：
 1. 快速找出問題來源。
 2. 判斷問題的影響範圍。
 3. 透過圖像梳理服務的依賴關係，以及依賴的合理性。
@@ -74,10 +74,10 @@ genAllReports(Service A)
 - **Limit Results**：筆數顯示。
 
 ![image](./img/jaeger2.png)
-如果執行過程中有錯誤，會有警示的標籤。
+如果執行過程中有錯誤，會有警示的 label；若使用到不同 Service 也會用不同顏色的 label 區分。。
 
 ![image](./img/jaeger3.png)
-點擊 Trace 可以進去觀察執行的時間軸（Trace Timeline）：
+我們可以點擊觀看執行的時間軸（Trace Timeline），上圖是「GET /api/allReports」這隻 API 的 Trace，我們可以很清楚每個 Span 之間的執行順序、依賴關係、執行時間、執行狀況。
 - **Duration**：總運行時間耗費 2s。
 - **Services**：關聯的服務為 2（service-a、service-b）。
 - **Depth**：最深的 Span 有 6 層（hadle_report_other 那個）。
@@ -91,7 +91,7 @@ genAllReports(Service A)
 
 ### 三、手把手帶你建立 Node.js 專案＆Jaeger 環境
 
-這邊筆者就不細說程式邏輯，主要的目的是讓讀者在 local 端建立分布式追蹤系統，如果懶得按照步驟執行，可以直接到筆者的 Github Clone 一份下來。
+這邊筆者就不細說程式邏輯，主要的目的是讓讀者在 local 端建立分布式追蹤系統，如果懶得按照步驟執行，可以直接到[筆者的 Github](https://github.com/dean9703111/jaeger-demo) Clone 一份下來。
 
 > 筆者 local 的 Node.js 版本為 v18.12.0
 
@@ -316,12 +316,12 @@ curl http://localhost:8080/api/allReports
 
 ![image](./img/jaeger5.png)
 
-如果都按照步驟執行，在瀏覽器的網址輸入「 http://localhost:16686/search 」就可以開始追蹤服務嚕！
+如果都按照步驟執行，在瀏覽器的網址輸入「 http://localhost:16686/search 」就可以開始追蹤你所設定的 Traces 嚕！
 
 ![image](./img/jaeger6.png)
 
 > **一些小建議**
-> 1. 雖然 Jaeger 能幫我們許多忙，但如果所有的服務都靠它追蹤，那產生的 Record 數量會非常龐大，所以建議「追蹤重要的服務」為主。
+> 1. 雖然分布式追蹤系統能幫我們許多忙，但如果所有的服務都靠它追蹤，那產生的 Record 數量會非常龐大，所以建議「追蹤重要的服務」為主。
 > 2. 這邊為了方便 Demo，筆者使用 http 來做 instrumentation 的舉例，但實務上 grpc 的使用率可能更高。
 
 筆者也是剛學習分布式追蹤系統的新人，如果描述有誤，或是有其他建議，再麻煩大神們不吝賜教，感謝～
