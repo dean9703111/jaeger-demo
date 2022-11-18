@@ -226,13 +226,14 @@ async function reportOther() {
   try {
     let span = tracer.startSpan('report_other_request');
     let result;
-    api.context.with(api.trace.setSpan(api.context.active(), span),async () => {
-      result = await axios.get(`http://localhost:8081/api/reportOther`);
+    await api.context.with(api.trace.setSpan(api.context.active(), span),async () => {
+      const { data } = await axios.get(`http://localhost:8081/api/reportOther`);
+      result = data;
     });
     span.end()
-    res.send(result);
+    return result
   } catch (e) {
-    res.send(e);
+    throw e
   }
 }
 app.get("/api/allReports", async (req, res) => {
