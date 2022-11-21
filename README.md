@@ -139,7 +139,7 @@ docker-compose up -d
 
 **SETP 4**：新增「tracing.js」貼上如下程式，如果你想要對「Opentelemetry」有更深入的了解，可以參考[官網](https://opentelemetry.io/docs/instrumentation/js/getting-started/nodejs/)；筆者範例主要是增加「exporter-jaeger、instrumentation-http」這兩個設定。
 
-> 有些人分不清 Opentelemetry 跟 Jaeger 的角色定位；簡單來說，Opentelemetry 幫忙產生可提供觀察的數據，而 Jaeger 則是一種分布式追蹤工具。
+> 有些人分不清 Opentelemetry 跟 Jaeger 的角色定位；簡單來說，Opentelemetry 幫忙產生/收集觀察用的數據，而 Jaeger 則是一種分布式追蹤工具。
 
 ```js
 'use strict';
