@@ -137,7 +137,9 @@ services:
 docker-compose up -d
 ```
 
-**SETP 4**：新增「tracing.js」貼上如下程式，如果你想要對「opentelemetry」有更深入的了解，可以參考[官網](https://opentelemetry.io/docs/instrumentation/js/getting-started/nodejs/)；筆者範例主要是增加「exporter-jaeger、instrumentation-http」這兩個設定。
+**SETP 4**：新增「tracing.js」貼上如下程式，如果你想要對「Opentelemetry」有更深入的了解，可以參考[官網](https://opentelemetry.io/docs/instrumentation/js/getting-started/nodejs/)；筆者範例主要是增加「exporter-jaeger、instrumentation-http」這兩個設定。
+
+> 有些人分不清 Opentelemetry 跟 Jaeger 的角色定位；簡單來說，Opentelemetry 幫忙產生可提供觀察的數據，而 Jaeger 則是一種分布式追蹤工具。
 
 ```js
 'use strict';
@@ -323,7 +325,7 @@ curl http://localhost:8080/api/allReports
 
 > **一些小建議**
 > 1. 雖然分布式追蹤系統能幫我們許多忙，但如果所有的服務都靠它追蹤，那產生的 Record 數量會非常龐大，所以建議「追蹤重要的服務」為主。
-> 2. 這邊為了方便 Demo，筆者使用 http 來做 instrumentation 的舉例，但實務上 grpc 的使用率可能更高。
+> 2. 這邊為了方便 Demo，筆者使用 http 來做 instrumentation 的舉例，但實務上 rpc 的使用率可能更高。
 
 筆者也是剛學習分布式追蹤系統的新人，如果描述有誤，或是有其他建議，再麻煩大神們不吝賜教，感謝～
 
